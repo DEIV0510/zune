@@ -15,14 +15,46 @@
   }
   window.setTimeout(hideBoot, 900); // hard cap: never block the UI
 
-  /* ---------- Navbar scroll state ---------- */
+  /* ---------- Navbar scroll state + scroll progress + hero parallax ---------- */
   var navbar = document.getElementById('navbar');
+  var scrollProgress = document.getElementById('scrollProgress');
+  var heroGlow = document.querySelector('.hero-glow');
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   function onScroll() {
-    if (window.scrollY > 8) navbar.classList.add('is-scrolled');
+    var y = window.scrollY || window.pageYOffset;
+    if (y > 8) navbar.classList.add('is-scrolled');
     else navbar.classList.remove('is-scrolled');
+
+    if (scrollProgress) {
+      var docH = document.documentElement.scrollHeight - window.innerHeight;
+      var pct = docH > 0 ? Math.min(1, y / docH) : 0;
+      scrollProgress.style.transform = 'scaleX(' + pct + ')';
+    }
+    if (heroGlow && !reduceMotion && y < 900) {
+      heroGlow.style.transform = 'translateY(' + (y * 0.18) + 'px)';
+    }
   }
   document.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+
+  /* ---------- Active nav link on scroll ---------- */
+  var navAnchors = Array.prototype.slice.call(document.querySelectorAll('.nav-links a'));
+  var navSections = navAnchors
+    .map(function (a) { return document.querySelector(a.getAttribute('href')); })
+    .filter(Boolean);
+  if ('IntersectionObserver' in window && navSections.length) {
+    var navIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var id = '#' + entry.target.id;
+        navAnchors.forEach(function (a) {
+          a.classList.toggle('is-active', a.getAttribute('href') === id);
+        });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    navSections.forEach(function (s) { navIO.observe(s); });
+  }
 
   /* ---------- Mobile menu ---------- */
   var hamburger = document.getElementById('hamburger');
@@ -71,7 +103,7 @@
   }
 
   /* ---------- Catalog ---------- */
-  var PAGE_SIZE = 24;
+  var PAGE_SIZE = 12;
   var catalogData = null;
   var activeFilter = 'todos';
   var searchQuery = '';
@@ -266,6 +298,19 @@
       if (!btn) return;
       openProductModal(btn.getAttribute('data-open'));
     });
+  }
+
+  /* ---------- Gallery strip nav ---------- */
+  var galleryStrip = document.getElementById('galleryGrid');
+  var galleryPrev = document.getElementById('galleryPrev');
+  var galleryNext = document.getElementById('galleryNext');
+  if (galleryStrip && galleryPrev && galleryNext) {
+    var galStep = function () {
+      var item = galleryStrip.querySelector('.gal-item');
+      return item ? item.getBoundingClientRect().width + 10 : 200;
+    };
+    galleryPrev.addEventListener('click', function () { galleryStrip.scrollBy({ left: -galStep() * 3, behavior: 'smooth' }); });
+    galleryNext.addEventListener('click', function () { galleryStrip.scrollBy({ left: galStep() * 3, behavior: 'smooth' }); });
   }
 
   /* ---------- Lightbox ---------- */

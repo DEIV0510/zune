@@ -55,6 +55,8 @@
 
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
 <header class="navbar" id="navbar">
   <div class="container navbar-inner">
     <a href="#inicio" class="brand" aria-label="ZUNE — Inicio">
@@ -119,6 +121,36 @@
       </div>
     </div>
   </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-set">
+        <span>155+ PRODUCTOS</span><span class="marquee-dot">✦</span>
+        <span>CUADROS PERSONALIZADOS</span><span class="marquee-dot">✦</span>
+        <span>MARVEL</span><span class="marquee-dot">✦</span>
+        <span>NBA</span><span class="marquee-dot">✦</span>
+        <span>BAD BUNNY</span><span class="marquee-dot">✦</span>
+        <span>ANIME</span><span class="marquee-dot">✦</span>
+        <span>NIKE · ADIDAS</span><span class="marquee-dot">✦</span>
+        <span>GRAN FORMATO</span><span class="marquee-dot">✦</span>
+        <span>QR PARA NEGOCIOS</span><span class="marquee-dot">✦</span>
+        <span>DISEÑO A TU GUSTO</span><span class="marquee-dot">✦</span>
+      </span>
+      <span class="marquee-set">
+        <span>155+ PRODUCTOS</span><span class="marquee-dot">✦</span>
+        <span>CUADROS PERSONALIZADOS</span><span class="marquee-dot">✦</span>
+        <span>MARVEL</span><span class="marquee-dot">✦</span>
+        <span>NBA</span><span class="marquee-dot">✦</span>
+        <span>BAD BUNNY</span><span class="marquee-dot">✦</span>
+        <span>ANIME</span><span class="marquee-dot">✦</span>
+        <span>NIKE · ADIDAS</span><span class="marquee-dot">✦</span>
+        <span>GRAN FORMATO</span><span class="marquee-dot">✦</span>
+        <span>QR PARA NEGOCIOS</span><span class="marquee-dot">✦</span>
+        <span>DISEÑO A TU GUSTO</span><span class="marquee-dot">✦</span>
+      </span>
+    </div>
+  </div>
 
   <!-- PRODUCTOS DESTACADOS -->
   <section class="section" id="productos">
@@ -221,14 +253,24 @@
   <!-- NUESTROS TRABAJOS -->
   <section class="section section-dark" id="galeria">
     <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Nuestros trabajos</span>
-        <h2>Así trabajamos tus ideas.</h2>
-        <p class="section-sub">Una muestra real de los diseños que personalizamos en fundas y más.</p>
+      <div class="gallery-head reveal">
+        <div>
+          <span class="eyebrow">Nuestros trabajos</span>
+          <h2>Así trabajamos tus ideas.</h2>
+          <p class="section-sub">Desliza para ver una muestra real de los diseños que personalizamos.</p>
+        </div>
+        <div class="carousel-nav">
+          <button class="carousel-btn" id="galleryPrev" aria-label="Anterior">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="carousel-btn" id="galleryNext" aria-label="Siguiente">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
       </div>
 
-      <div class="gallery-grid reveal" id="galleryGrid">
-        <button class="gal-item gal-big" data-full="assets/img/gallery/01-abstracto-full.webp" data-caption="Diseño para funda — Abstracto" aria-label="Ver diseño Abstracto en grande">
+      <div class="gallery-strip reveal" id="galleryGrid">
+        <button class="gal-item" data-full="assets/img/gallery/01-abstracto-full.webp" data-caption="Diseño para funda — Abstracto" aria-label="Ver diseño Abstracto en grande">
           <img src="assets/img/gallery/01-abstracto.webp" alt="Diseño de personalización para funda de celular estilo Abstracto" loading="lazy" decoding="async" width="560" height="560">
           <span class="gal-tag">Abstracto</span>
         </button>
@@ -248,7 +290,7 @@
           <img src="assets/img/gallery/05-craneos.webp" alt="Diseño de personalización para funda de celular estilo Craneos" loading="lazy" decoding="async" width="560" height="560">
           <span class="gal-tag">Craneos</span>
         </button>
-        <button class="gal-item gal-big" data-full="assets/img/gallery/06-espacio-full.webp" data-caption="Diseño para funda — Espacio" aria-label="Ver diseño Espacio en grande">
+        <button class="gal-item" data-full="assets/img/gallery/06-espacio-full.webp" data-caption="Diseño para funda — Espacio" aria-label="Ver diseño Espacio en grande">
           <img src="assets/img/gallery/06-espacio.webp" alt="Diseño de personalización para funda de celular estilo Espacio" loading="lazy" decoding="async" width="560" height="560">
           <span class="gal-tag">Espacio</span>
         </button>
@@ -276,7 +318,7 @@
           <img src="assets/img/gallery/12-museo.webp" alt="Diseño de personalización para funda de celular estilo Museo" loading="lazy" decoding="async" width="560" height="560">
           <span class="gal-tag">Museo</span>
         </button>
-        <button class="gal-item gal-big" data-full="assets/img/gallery/13-gatos-full.webp" data-caption="Diseño para funda — Gatos" aria-label="Ver diseño Gatos en grande">
+        <button class="gal-item" data-full="assets/img/gallery/13-gatos-full.webp" data-caption="Diseño para funda — Gatos" aria-label="Ver diseño Gatos en grande">
           <img src="assets/img/gallery/13-gatos.webp" alt="Diseño de personalización para funda de celular estilo Gatos" loading="lazy" decoding="async" width="560" height="560">
           <span class="gal-tag">Gatos</span>
         </button>
@@ -304,7 +346,7 @@
           <img src="assets/img/gallery/19-poison.webp" alt="Diseño de personalización para funda de celular estilo Poison" loading="lazy" decoding="async" width="560" height="560">
           <span class="gal-tag">Poison</span>
         </button>
-        <button class="gal-item gal-big" data-full="assets/img/gallery/20-zebra-full.webp" data-caption="Diseño para funda — Zebra" aria-label="Ver diseño Zebra en grande">
+        <button class="gal-item" data-full="assets/img/gallery/20-zebra-full.webp" data-caption="Diseño para funda — Zebra" aria-label="Ver diseño Zebra en grande">
           <img src="assets/img/gallery/20-zebra.webp" alt="Diseño de personalización para funda de celular estilo Zebra" loading="lazy" decoding="async" width="560" height="560">
           <span class="gal-tag">Zebra</span>
         </button>
@@ -324,7 +366,7 @@
           <img src="assets/img/gallery/24-rare.webp" alt="Diseño de personalización para funda de celular estilo Rare" loading="lazy" decoding="async" width="560" height="560">
           <span class="gal-tag">Rare</span>
         </button>
-        <button class="gal-item gal-big" data-full="assets/img/gallery/25-marvel-full.webp" data-caption="Diseño para funda — Marvel" aria-label="Ver diseño Marvel en grande">
+        <button class="gal-item" data-full="assets/img/gallery/25-marvel-full.webp" data-caption="Diseño para funda — Marvel" aria-label="Ver diseño Marvel en grande">
           <img src="assets/img/gallery/25-marvel.webp" alt="Diseño de personalización para funda de celular estilo Marvel" loading="lazy" decoding="async" width="560" height="560">
           <span class="gal-tag">Marvel</span>
         </button>
@@ -344,7 +386,7 @@
           <img src="assets/img/gallery/29-nike.webp" alt="Diseño de personalización para funda de celular estilo Nike" loading="lazy" decoding="async" width="560" height="560">
           <span class="gal-tag">Nike</span>
         </button>
-        <button class="gal-item gal-big" data-full="assets/img/gallery/30-adidas-full.webp" data-caption="Diseño para funda — Adidas" aria-label="Ver diseño Adidas en grande">
+        <button class="gal-item" data-full="assets/img/gallery/30-adidas-full.webp" data-caption="Diseño para funda — Adidas" aria-label="Ver diseño Adidas en grande">
           <img src="assets/img/gallery/30-adidas.webp" alt="Diseño de personalización para funda de celular estilo Adidas" loading="lazy" decoding="async" width="560" height="560">
           <span class="gal-tag">Adidas</span>
         </button>
@@ -364,7 +406,7 @@
           <img src="assets/img/gallery/34-simpsons.webp" alt="Diseño de personalización para funda de celular estilo Simpsons" loading="lazy" decoding="async" width="560" height="560">
           <span class="gal-tag">Simpsons</span>
         </button>
-        <button class="gal-item gal-big" data-full="assets/img/gallery/35-anime-full.webp" data-caption="Diseño para funda — Anime" aria-label="Ver diseño Anime en grande">
+        <button class="gal-item" data-full="assets/img/gallery/35-anime-full.webp" data-caption="Diseño para funda — Anime" aria-label="Ver diseño Anime en grande">
           <img src="assets/img/gallery/35-anime.webp" alt="Diseño de personalización para funda de celular estilo Anime" loading="lazy" decoding="async" width="560" height="560">
           <span class="gal-tag">Anime</span>
         </button>
@@ -390,7 +432,7 @@
         </button>
       </div>
 
-      <p class="gallery-note">¿No ves tu estilo? Tenemos cientos de diseños más — pregúntanos por WhatsApp.</p>
+      <p class="gallery-note">¿Quieres ver todos los estilos disponibles? <a href="#catalogo">Explora el catálogo completo</a>.</p>
     </div>
   </section>
 
