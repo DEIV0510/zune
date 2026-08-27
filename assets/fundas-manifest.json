@@ -1,0 +1,242 @@
+[
+  {
+    "cat": "Abstracto",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Abstracto/Pastel 2.jpg",
+    "slug": "abstracto",
+    "base": "01-abstracto"
+  },
+  {
+    "cat": "Floral",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Floral/Girasoles.jpg",
+    "slug": "floral",
+    "base": "02-floral"
+  },
+  {
+    "cat": "Cute",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Cute/05.jpg",
+    "slug": "cute",
+    "base": "03-cute"
+  },
+  {
+    "cat": "Animal Print",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Animal Print/Zebra copia.jpg",
+    "slug": "animal-print",
+    "base": "04-animal-print"
+  },
+  {
+    "cat": "Craneos",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Craneos/Craneo 2.jpg",
+    "slug": "craneos",
+    "base": "05-craneos"
+  },
+  {
+    "cat": "Espacio",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Espacio/Space.jpg",
+    "slug": "espacio",
+    "base": "06-espacio"
+  },
+  {
+    "cat": "Ondas",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Ondas/Ondas.jpg",
+    "slug": "ondas",
+    "base": "07-ondas"
+  },
+  {
+    "cat": "Corazones",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Corazones/Corazones 02.jpg",
+    "slug": "corazones",
+    "base": "08-corazones"
+  },
+  {
+    "cat": "Estrellitas",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Estrellitas/stars.jpg",
+    "slug": "estrellitas",
+    "base": "09-estrellitas"
+  },
+  {
+    "cat": "Arte",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Arte/David.jpg",
+    "slug": "arte",
+    "base": "10-arte"
+  },
+  {
+    "cat": "Topografia",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Topografia/Topografia W.jpg",
+    "slug": "topografia",
+    "base": "11-topografia"
+  },
+  {
+    "cat": "Museo",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Museo/08 copia.jpg",
+    "slug": "museo",
+    "base": "12-museo"
+  },
+  {
+    "cat": "Gatos",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Gatos/Cats.jpg",
+    "slug": "gatos",
+    "base": "13-gatos"
+  },
+  {
+    "cat": "Perros Criollos",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Perros Criollos/PC 01.jpg",
+    "slug": "perros-criollos",
+    "base": "14-perros-criollos"
+  },
+  {
+    "cat": "Mascotas",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Mascotas/Perritos.jpg",
+    "slug": "mascotas",
+    "base": "15-mascotas"
+  },
+  {
+    "cat": "Halloween",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Halloween/Halloween 1.jpg",
+    "slug": "halloween",
+    "base": "16-halloween"
+  },
+  {
+    "cat": "Casino",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Casino/Casino2.jpg",
+    "slug": "casino",
+    "base": "17-casino"
+  },
+  {
+    "cat": "Piano",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Piano/Piano.jpg",
+    "slug": "piano",
+    "base": "18-piano"
+  },
+  {
+    "cat": "Poison",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Poison/Poison.jpg",
+    "slug": "poison",
+    "base": "19-poison"
+  },
+  {
+    "cat": "Zebra",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Zebra/Zebra copia.jpg",
+    "slug": "zebra",
+    "base": "20-zebra"
+  },
+  {
+    "cat": "Garabato",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Garabato/Garabatos.jpg",
+    "slug": "garabato",
+    "base": "21-garabato"
+  },
+  {
+    "cat": "Cloud",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Cloud/verde rosa azul.jpg",
+    "slug": "cloud",
+    "base": "22-cloud"
+  },
+  {
+    "cat": "Ojos",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Ojos/Ojos.jpg",
+    "slug": "ojos",
+    "base": "23-ojos"
+  },
+  {
+    "cat": "Rare",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Rare/Rare stickers.jpg",
+    "slug": "rare",
+    "base": "24-rare"
+  },
+  {
+    "cat": "Marvel",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Marvel/SpiderMan 01.jpg",
+    "slug": "marvel",
+    "base": "25-marvel"
+  },
+  {
+    "cat": "NBA",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/NBA/Lakers NBA.jpg",
+    "slug": "nba",
+    "base": "26-nba"
+  },
+  {
+    "cat": "Bad Bunny",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Bad Bunny/Bad Bunny 2025.jpg",
+    "slug": "bad-bunny",
+    "base": "27-bad-bunny"
+  },
+  {
+    "cat": "Karol G",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Karol G/Karol G 1.jpg",
+    "slug": "karol-g",
+    "base": "28-karol-g"
+  },
+  {
+    "cat": "Nike",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Nike/Nike White.jpg",
+    "slug": "nike",
+    "base": "29-nike"
+  },
+  {
+    "cat": "Adidas",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Adidas/Adidas copia.jpg",
+    "slug": "adidas",
+    "base": "30-adidas"
+  },
+  {
+    "cat": "Coca Cola",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Coca Cola/Coca-cola original.jpg",
+    "slug": "coca-cola",
+    "base": "31-coca-cola"
+  },
+  {
+    "cat": "Harry Potter",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Harry Potter/Harry Potter 2.jpg",
+    "slug": "harry-potter",
+    "base": "32-harry-potter"
+  },
+  {
+    "cat": "Star Wars",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Star wars/003.jpg",
+    "slug": "star-wars",
+    "base": "33-star-wars"
+  },
+  {
+    "cat": "Simpsons",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Simpsons/Collage.jpg",
+    "slug": "simpsons",
+    "base": "34-simpsons"
+  },
+  {
+    "cat": "Anime",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Anime/Dragon Ball/GOKU.jpg",
+    "slug": "anime",
+    "base": "35-anime"
+  },
+  {
+    "cat": "Pokemon",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Pokemon/Charizard.jpg",
+    "slug": "pokemon",
+    "base": "36-pokemon"
+  },
+  {
+    "cat": "Barbie",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Barbie/Barbie.jpg",
+    "slug": "barbie",
+    "base": "37-barbie"
+  },
+  {
+    "cat": "CR7",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/CR7/CR7 (1).jpg",
+    "slug": "cr7",
+    "base": "38-cr7"
+  },
+  {
+    "cat": "Messi",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Messi/Messi.jpg",
+    "slug": "messi",
+    "base": "39-messi"
+  },
+  {
+    "cat": "Mickey Mouse",
+    "file": "C:/Users/Lenovo/Desktop/ZUNE/Catálogo/Mickey Mouse/Mickey 1.jpg",
+    "slug": "mickey-mouse",
+    "base": "40-mickey-mouse"
+  }
+]
