@@ -62,16 +62,209 @@
     revealEls.forEach(function (el) { el.classList.add('is-visible'); });
   }
 
-  /* ---------- Cuadros carousel ---------- */
-  var track = document.getElementById('cuadrosCarousel');
-  if (track) {
-    document.querySelectorAll('.carousel-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var dir = parseInt(btn.getAttribute('data-dir'), 10);
-        var card = track.querySelector('.cuadro-item');
-        var step = card ? card.getBoundingClientRect().width + 18 : 260;
-        track.scrollBy({ left: dir * step * 2, behavior: 'smooth' });
-      });
+  /* ---------- Catalog helpers ---------- */
+  function normalize(s) {
+    return (s || '').toString().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  }
+  function waLink(msg) {
+    return 'https://wa.me/573116239284?text=' + encodeURIComponent(msg);
+  }
+
+  /* ---------- Catalog ---------- */
+  var PAGE_SIZE = 24;
+  var catalogData = null;
+  var activeFilter = 'todos';
+  var searchQuery = '';
+  var visibleCount = PAGE_SIZE;
+
+  var catalogGrid = document.getElementById('catalogGrid');
+  var catalogFilters = document.getElementById('catalogFilters');
+  var catalogSearch = document.getElementById('catalogSearch');
+  var catalogCount = document.getElementById('catalogCount');
+  var catalogEmpty = document.getElementById('catalogEmpty');
+  var catalogMore = document.getElementById('catalogMore');
+
+  function getFiltered() {
+    if (!catalogData) return [];
+    var q = normalize(searchQuery.trim());
+    return catalogData.products.filter(function (p) {
+      if (activeFilter !== 'todos' && p.group !== activeFilter) return false;
+      if (!q) return true;
+      var typeWords = p.type === 'cuadro' ? 'cuadro cuadros' : 'funda fundas';
+      var hay = normalize(p.name + ' ' + p.groupLabel + ' ' + (p.context || '') + ' ' + typeWords);
+      return hay.indexOf(q) !== -1;
+    });
+  }
+
+  function cardHTML(p) {
+    var countBadge = p.images.length > 1 ? '<span class="catalog-card-count">' + p.images.length + ' fotos</span>' : '';
+    return '' +
+      '<article class="catalog-card">' +
+        '<button class="catalog-card-media" data-open="' + p.id + '" aria-label="Ver detalles de ' + p.name + '">' +
+          '<img src="' + p.thumb + '" alt="' + p.name + ' — ' + p.groupLabel + '" loading="lazy" decoding="async" width="420" height="420">' +
+          countBadge +
+        '</button>' +
+        '<div class="catalog-card-body">' +
+          '<span class="catalog-card-cat">' + p.groupLabel + '</span>' +
+          '<h3>' + p.name + '</h3>' +
+          '<p>' + p.description + '</p>' +
+          '<div class="catalog-card-actions">' +
+            '<button class="btn btn-outline" data-open="' + p.id + '">Ver detalles</button>' +
+            '<a class="btn btn-primary" href="' + waLink(p.waMessage) + '" target="_blank" rel="noopener">Cotizar</a>' +
+          '</div>' +
+        '</div>' +
+      '</article>';
+  }
+
+  function renderGrid() {
+    if (!catalogData) return;
+    var filtered = getFiltered();
+    var slice = filtered.slice(0, visibleCount);
+    catalogGrid.innerHTML = slice.map(cardHTML).join('');
+    catalogEmpty.hidden = filtered.length > 0;
+    catalogMore.hidden = filtered.length <= visibleCount;
+    catalogCount.textContent = filtered.length + (filtered.length === 1 ? ' producto encontrado' : ' productos encontrados');
+  }
+
+  function renderFilters() {
+    if (!catalogData) return;
+    var chips = [{ id: 'todos', label: 'Todos', count: catalogData.products.length }].concat(catalogData.groups);
+    catalogFilters.innerHTML = chips.map(function (g) {
+      return '<button class="chip' + (g.id === activeFilter ? ' is-active' : '') + '" data-filter="' + g.id + '">' + g.label + ' (' + g.count + ')</button>';
+    }).join('');
+  }
+
+  if (catalogGrid) {
+    fetch('assets/catalog.json').then(function (r) { return r.json(); }).then(function (data) {
+      catalogData = data;
+      renderFilters();
+      renderGrid();
+    }).catch(function (e) { console.error('No se pudo cargar el catálogo', e); });
+
+    catalogFilters.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-filter]');
+      if (!btn) return;
+      activeFilter = btn.getAttribute('data-filter');
+      visibleCount = PAGE_SIZE;
+      renderFilters();
+      renderGrid();
+    });
+
+    var searchDebounce;
+    catalogSearch.addEventListener('input', function () {
+      window.clearTimeout(searchDebounce);
+      searchDebounce = window.setTimeout(function () {
+        searchQuery = catalogSearch.value;
+        visibleCount = PAGE_SIZE;
+        renderGrid();
+      }, 150);
+    });
+
+    catalogMore.addEventListener('click', function () {
+      visibleCount += PAGE_SIZE;
+      renderGrid();
+    });
+
+    catalogGrid.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-open]');
+      if (!btn) return;
+      openProductModal(btn.getAttribute('data-open'));
+    });
+  }
+
+  /* ---------- Product detail modal ---------- */
+  var pmodal = document.getElementById('pmodal');
+  var pmodalGallery = document.getElementById('pmodalGallery');
+  var pmodalDots = document.getElementById('pmodalDots');
+  var pmodalPrevImg = document.getElementById('pmodalPrevImg');
+  var pmodalNextImg = document.getElementById('pmodalNextImg');
+  var pmodalCat = document.getElementById('pmodalCat');
+  var pmodalName = document.getElementById('pmodalName');
+  var pmodalDesc = document.getElementById('pmodalDesc');
+  var pmodalWa = document.getElementById('pmodalWa');
+  var pmodalRelated = document.getElementById('pmodalRelated');
+  var pmodalRelatedRow = document.getElementById('pmodalRelatedRow');
+  var pmodalClose = document.getElementById('pmodalClose');
+  var pmodalBackdrop = document.getElementById('pmodalBackdrop');
+
+  function findProduct(id) {
+    return catalogData ? catalogData.products.filter(function (p) { return p.id === id; })[0] : null;
+  }
+
+  function openProductModal(id) {
+    var p = findProduct(id);
+    if (!p || !pmodal) return;
+
+    pmodalGallery.innerHTML = p.images.map(function (src, i) {
+      return '<img src="' + src + '" alt="' + p.name + ' foto ' + (i + 1) + '" loading="' + (i === 0 ? 'eager' : 'lazy') + '" decoding="async">';
+    }).join('');
+    var multi = p.images.length > 1;
+    pmodalDots.innerHTML = multi ? p.images.map(function (_, i) {
+      return '<span' + (i === 0 ? ' class="is-active"' : '') + '></span>';
+    }).join('') : '';
+    pmodalPrevImg.hidden = !multi;
+    pmodalNextImg.hidden = !multi;
+    pmodalGallery.scrollLeft = 0;
+
+    pmodalCat.textContent = p.groupLabel;
+    pmodalName.textContent = p.name;
+    pmodalDesc.textContent = p.description;
+    pmodalWa.href = waLink(p.waMessage);
+
+    var related = catalogData.products.filter(function (o) { return o.group === p.group && o.id !== p.id; }).slice(0, 8);
+    pmodalRelated.hidden = related.length === 0;
+    pmodalRelatedRow.innerHTML = related.map(function (r) {
+      return '<button class="pmodal-related-item" data-open="' + r.id + '"><img src="' + r.thumb + '" alt="' + r.name + '" loading="lazy"><span>' + r.name + '</span></button>';
+    }).join('');
+
+    pmodal.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeProductModal() {
+    if (!pmodal) return;
+    pmodal.hidden = true;
+    document.body.style.overflow = '';
+  }
+
+  function setActiveDot(idx) {
+    var dots = pmodalDots.querySelectorAll('span');
+    dots.forEach(function (d, i) { d.classList.toggle('is-active', i === idx); });
+  }
+
+  function scrollGalleryTo(i) {
+    var imgs = pmodalGallery.querySelectorAll('img');
+    if (!imgs[i]) return;
+    pmodalGallery.scrollTo({ left: imgs[i].offsetLeft, behavior: 'smooth' });
+    setActiveDot(i); // update immediately; don't depend solely on the scroll event
+  }
+
+  if (pmodal) {
+    pmodalClose.addEventListener('click', closeProductModal);
+    pmodalBackdrop.addEventListener('click', closeProductModal);
+    document.addEventListener('keydown', function (e) {
+      if (pmodal.hidden) return;
+      if (e.key === 'Escape') closeProductModal();
+    });
+
+    pmodalPrevImg.addEventListener('click', function () {
+      var idx = Math.round(pmodalGallery.scrollLeft / (pmodalGallery.clientWidth || 1));
+      scrollGalleryTo(Math.max(0, idx - 1));
+    });
+    pmodalNextImg.addEventListener('click', function () {
+      var imgs = pmodalGallery.querySelectorAll('img');
+      var idx = Math.round(pmodalGallery.scrollLeft / (pmodalGallery.clientWidth || 1));
+      scrollGalleryTo(Math.min(imgs.length - 1, idx + 1));
+    });
+    pmodalGallery.addEventListener('scroll', function () {
+      var idx = Math.round(pmodalGallery.scrollLeft / (pmodalGallery.clientWidth || 1));
+      setActiveDot(idx);
+    }, { passive: true });
+
+    pmodalRelatedRow.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-open]');
+      if (!btn) return;
+      openProductModal(btn.getAttribute('data-open'));
     });
   }
 
