@@ -71,8 +71,11 @@ h1,h2,h3{font-family:var(--font-head);line-height:1.12;letter-spacing:-.01em;fon
   display:flex;align-items:center;justify-content:center;
   transition:opacity .38s var(--ease), visibility .38s var(--ease);
 }
-.boot-mark{width:64px;height:64px;color:var(--purple);animation:boot-pulse 900ms ease-in-out infinite}
-@keyframes boot-pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.86);opacity:.65}}
+.boot-mark{width:72px;height:72px;border-radius:18px;box-shadow:0 0 0 0 rgba(123,0,255,.5);animation:boot-pulse 1100ms ease-in-out infinite}
+@keyframes boot-pulse{
+  0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(123,0,255,.45)}
+  50%{transform:scale(1.08);box-shadow:0 0 22px 6px rgba(123,0,255,.45)}
+}
 #boot[data-hide]{opacity:0;visibility:hidden;pointer-events:none}
 @media (prefers-reduced-motion:reduce){.boot-mark{animation:none}}
 
