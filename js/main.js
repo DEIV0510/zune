@@ -78,6 +78,11 @@
     a.addEventListener('click', closeMenu);
   });
 
+  /* ---------- Close product modal when navigating via navbar ---------- */
+  document.getElementById('navbar').addEventListener('click', function (e) {
+    if (e.target.closest('a')) closeProductModal();
+  });
+
   /* ---------- Reveal on scroll ---------- */
   var revealEls = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {

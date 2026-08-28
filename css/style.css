@@ -314,18 +314,18 @@ h1,h2,h3{font-family:var(--font-head);line-height:1.12;letter-spacing:-.01em;fon
 @media (min-width:900px){.catalog-grid{grid-template-columns:repeat(4,1fr)}.catalog-search input{font-size:1rem}}
 @media (min-width:1200px){.catalog-grid{grid-template-columns:repeat(5,1fr)}}
 
-/* ============ PRODUCT DETAIL MODAL (full-screen takeover) ============ */
-.pmodal{position:fixed;inset:0;z-index:950}
+/* ============ PRODUCT DETAIL MODAL (full-screen takeover, below navbar) ============ */
+.pmodal{position:fixed;top:72px;left:0;right:0;bottom:0;z-index:480}
 .pmodal[hidden]{display:none}
 .pmodal-backdrop{position:absolute;inset:0;background:var(--black)}
 .pmodal-sheet{
-  position:relative;width:100vw;height:100dvh;background:var(--white);
+  position:relative;width:100vw;height:calc(100dvh - 72px);background:var(--white);
   overflow-y:auto;display:flex;flex-direction:column;
   animation:pmodal-up .28s var(--ease);
 }
 @keyframes pmodal-up{from{opacity:0}to{opacity:1}}
 .pmodal-close{
-  position:fixed;top:calc(14px + env(safe-area-inset-top));right:calc(14px + env(safe-area-inset-right));
+  position:fixed;top:calc(72px + 14px);right:calc(14px + env(safe-area-inset-right));
   z-index:5;width:44px;height:44px;border-radius:50%;
   background:rgba(10,10,12,.55);color:#fff;display:flex;align-items:center;justify-content:center;
 }
@@ -377,9 +377,9 @@ h1,h2,h3{font-family:var(--font-head);line-height:1.12;letter-spacing:-.01em;fon
 .pmodal-info p{color:var(--gray-500);margin-bottom:18px}
 .pmodal-wa{width:100%}
 
-.pmodal-trust{display:flex;flex-direction:column;gap:9px;margin-top:18px;padding-top:18px;border-top:1px solid var(--border-light)}
-.pmodal-trust li{display:flex;align-items:center;gap:9px;font-size:.85rem;color:var(--gray-700);font-weight:500}
-.pmodal-trust svg{color:var(--purple);flex-shrink:0}
+.pmodal-trust{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border-light)}
+.pmodal-trust li{display:flex;align-items:center;gap:7px;font-size:.8rem;color:var(--gray-700);font-weight:500}
+.pmodal-trust svg{color:var(--purple);flex-shrink:0;width:15px;height:15px}
 
 .pmodal-related{margin-top:30px;padding-top:24px;border-top:1px solid var(--border-light);max-width:none}
 .pmodal-related-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
