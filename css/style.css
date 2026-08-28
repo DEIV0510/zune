@@ -300,6 +300,8 @@ h1,h2,h3{font-family:var(--font-head);line-height:1.12;letter-spacing:-.01em;fon
 .catalog-card-cat{font-size:.7rem;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:.03em}
 .catalog-card-body h3{font-size:.92rem;line-height:1.25}
 .catalog-card-body p{font-size:.8rem;color:var(--gray-500);flex:1}
+.catalog-card-price{font-family:var(--font-head);font-weight:700;font-size:.95rem;color:var(--ink)}
+.catalog-card-price small{font-family:var(--font-body);font-weight:600;color:var(--gray-500);font-size:.72rem}
 .catalog-card-actions{display:flex;gap:6px;margin-top:4px}
 .catalog-card-actions .btn{flex:1;padding:9px 8px;font-size:.76rem;min-height:44px}
 .catalog-card-actions .btn-outline{background:transparent;border:1.5px solid var(--border-light);color:var(--ink)}
@@ -341,6 +343,29 @@ h1,h2,h3{font-family:var(--font-head);line-height:1.12;letter-spacing:-.01em;fon
 .pmodal-gdots span.is-active{background:#fff;width:16px;border-radius:4px}
 
 .pmodal-info{padding:20px 20px calc(28px + env(safe-area-inset-bottom))}
+
+.pmodal-config{display:flex;flex-direction:column;gap:16px;margin:18px 0}
+.pconfig-group{display:flex;flex-direction:column;gap:8px}
+.pconfig-label{font-size:.82rem;font-weight:700;color:var(--ink)}
+.pconfig-label small{font-weight:500;color:var(--gray-500);text-transform:none;letter-spacing:0}
+.pconfig-chips{display:flex;flex-wrap:wrap;gap:8px}
+.pconfig-chip{
+  padding:10px 14px;border-radius:10px;border:1.5px solid var(--border-light);
+  font-size:.85rem;font-weight:600;color:var(--ink);min-height:44px;
+  transition:border-color var(--dur),background var(--dur),color var(--dur);
+}
+.pconfig-chip:hover{border-color:var(--purple)}
+.pconfig-chip.is-selected{background:var(--purple);border-color:var(--purple);color:#fff}
+.pconfig-select{
+  width:100%;padding:12px 14px;border-radius:10px;border:1.5px solid var(--border-light);
+  font-family:var(--font-body);font-size:.92rem;color:var(--ink);background:var(--white);
+  min-height:44px;
+}
+.pconfig-select:focus{outline:none;border-color:var(--purple)}
+
+.pmodal-price-row{display:flex;align-items:baseline;gap:8px;margin-bottom:16px}
+.pmodal-price{font-family:var(--font-head);font-size:1.6rem;font-weight:700;color:var(--purple)}
+.pmodal-price-from{font-size:.8rem;color:var(--gray-500);font-weight:600}
 .pmodal-cat{font-size:.72rem;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:.04em}
 .pmodal-info h3{font-family:var(--font-head);font-size:1.4rem;margin:6px 0 8px}
 .pmodal-info p{color:var(--gray-500);margin-bottom:18px}
