@@ -662,6 +662,7 @@
     </div>
 
     <div class="pmodal-info">
+      <nav class="pmodal-crumbs" id="pmodalCrumbs" aria-label="Ruta"></nav>
       <span class="pmodal-cat" id="pmodalCat"></span>
       <h3 id="pmodalName"></h3>
       <p id="pmodalDesc"></p>
@@ -677,8 +678,17 @@
         Cotizar este producto
       </a>
 
+      <ul class="pmodal-trust">
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Producto personalizado a tu gusto</li>
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Hecho en Itagüí, Antioquia</li>
+        <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Cotización directa y sin intermediarios</li>
+      </ul>
+
       <div class="pmodal-related" id="pmodalRelated" hidden>
-        <span class="pmodal-related-title">También te puede interesar</span>
+        <div class="pmodal-related-head">
+          <span class="pmodal-related-title">También te puede interesar</span>
+          <button class="pmodal-related-viewall" id="pmodalViewAll">Ver categoría completa</button>
+        </div>
         <div class="pmodal-related-row" id="pmodalRelatedRow"></div>
       </div>
     </div>

@@ -219,6 +219,7 @@
   var pmodalDots = document.getElementById('pmodalDots');
   var pmodalPrevImg = document.getElementById('pmodalPrevImg');
   var pmodalNextImg = document.getElementById('pmodalNextImg');
+  var pmodalCrumbs = document.getElementById('pmodalCrumbs');
   var pmodalCat = document.getElementById('pmodalCat');
   var pmodalName = document.getElementById('pmodalName');
   var pmodalDesc = document.getElementById('pmodalDesc');
@@ -227,6 +228,7 @@
   var pmodalWa = document.getElementById('pmodalWa');
   var pmodalRelated = document.getElementById('pmodalRelated');
   var pmodalRelatedRow = document.getElementById('pmodalRelatedRow');
+  var pmodalViewAll = document.getElementById('pmodalViewAll');
   var pmodalClose = document.getElementById('pmodalClose');
   var pmodalBackdrop = document.getElementById('pmodalBackdrop');
   var currentProduct = null;
@@ -339,16 +341,22 @@
     pmodalNextImg.hidden = !multi;
     pmodalGallery.scrollLeft = 0;
 
+    pmodalCrumbs.innerHTML =
+      '<a href="#catalogo" data-close-crumb="1">Catálogo</a><span>/</span>' +
+      '<a href="#catalogo" data-crumb-group="' + p.group + '">' + p.groupLabel + '</a><span>/</span>' +
+      '<strong>' + p.name + '</strong>';
     pmodalCat.textContent = p.groupLabel;
     pmodalName.textContent = p.name;
     pmodalDesc.textContent = p.description;
     renderConfig(p);
     updatePriceAndWA(p);
 
-    var related = catalogData.products.filter(function (o) { return o.group === p.group && o.id !== p.id; }).slice(0, 8);
+    var related = catalogData.products.filter(function (o) { return o.group === p.group && o.id !== p.id; }).slice(0, 6);
     pmodalRelated.hidden = related.length === 0;
+    pmodalViewAll.setAttribute('data-view-group', p.group);
     pmodalRelatedRow.innerHTML = related.map(function (r) {
-      return '<button class="pmodal-related-item" data-open="' + r.id + '"><img src="' + r.thumb + '" alt="' + r.name + '" loading="lazy"><span>' + r.name + '</span></button>';
+      var priceLabel = r.type === 'cuadro' ? 'Desde ' + formatCOP(r.priceFrom) : formatCOP(r.price);
+      return '<button class="pmodal-related-item" data-open="' + r.id + '"><img src="' + r.thumb + '" alt="' + r.name + '" loading="lazy"><span>' + r.name + '</span><small>' + priceLabel + '</small></button>';
     }).join('');
 
     pmodal.hidden = false;
@@ -399,6 +407,30 @@
       var btn = e.target.closest('[data-open]');
       if (!btn) return;
       openProductModal(btn.getAttribute('data-open'));
+    });
+
+    function goToCategory(groupId) {
+      closeProductModal();
+      if (groupId && catalogFilters) {
+        activeFilter = groupId;
+        visibleCount = PAGE_SIZE;
+        renderFilters();
+        renderGrid();
+      }
+      window.setTimeout(function () {
+        var target = document.getElementById('catalogo');
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+    }
+
+    pmodalCrumbs.addEventListener('click', function (e) {
+      var a = e.target.closest('a');
+      if (!a) return;
+      e.preventDefault();
+      goToCategory(a.getAttribute('data-crumb-group'));
+    });
+    pmodalViewAll.addEventListener('click', function () {
+      goToCategory(pmodalViewAll.getAttribute('data-view-group'));
     });
   }
 
