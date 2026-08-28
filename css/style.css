@@ -290,7 +290,7 @@ h1,h2,h3{font-family:var(--font-head);line-height:1.12;letter-spacing:-.01em;fon
 }
 .catalog-card:hover{transform:translateY(-4px);box-shadow:0 24px 46px -24px rgba(10,10,12,.4)}
 .catalog-card-media{aspect-ratio:1/1;overflow:hidden;background:var(--off-white);position:relative}
-.catalog-card-media img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.catalog-card-media img{width:100%;height:100%;object-fit:contain;transition:transform .5s var(--ease)}
 .catalog-card:hover .catalog-card-media img{transform:scale(1.06)}
 .catalog-card-count{
   position:absolute;right:8px;bottom:8px;background:rgba(10,10,12,.72);color:#fff;
@@ -405,7 +405,7 @@ h1,h2,h3{font-family:var(--font-head);line-height:1.12;letter-spacing:-.01em;fon
 .pmodal-related-row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 .pmodal-related-item{text-align:left;border:1px solid var(--border-light);border-radius:var(--radius-md);overflow:hidden;transition:border-color var(--dur),transform var(--dur)}
 .pmodal-related-item:hover{border-color:var(--purple);transform:translateY(-2px)}
-.pmodal-related-item img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;margin-bottom:0}
+.pmodal-related-item img{width:100%;aspect-ratio:1/1;object-fit:contain;background:var(--off-white);display:block;margin-bottom:0}
 .pmodal-related-item span{font-size:.8rem;font-weight:600;line-height:1.3;display:block;padding:8px 10px}
 .pmodal-related-item small{display:block;padding:0 10px 10px;color:var(--purple);font-weight:700;font-size:.78rem}
 
@@ -423,7 +423,7 @@ h1,h2,h3{font-family:var(--font-head);line-height:1.12;letter-spacing:-.01em;fon
     width:56px;height:56px;border-radius:10px;overflow:hidden;flex-shrink:0;
     border:1.5px solid var(--border-light);opacity:.7;transition:opacity var(--dur),border-color var(--dur);
   }
-  .pmodal-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .pmodal-thumb img{width:100%;height:100%;object-fit:contain;background:var(--off-white);display:block}
   .pmodal-thumb:hover{opacity:1}
   .pmodal-thumb.is-active{opacity:1;border-color:var(--purple)}
   .pmodal-gallery-wrap{height:100%}
