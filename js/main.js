@@ -221,10 +221,13 @@
   /* ---------- Product detail modal ---------- */
   var pmodal = document.getElementById('pmodal');
   var pmodalGallery = document.getElementById('pmodalGallery');
+  var pmodalThumbs = document.getElementById('pmodalThumbs');
+  var pmodalZoom = document.getElementById('pmodalZoom');
   var pmodalDots = document.getElementById('pmodalDots');
   var pmodalPrevImg = document.getElementById('pmodalPrevImg');
   var pmodalNextImg = document.getElementById('pmodalNextImg');
   var pmodalCrumbs = document.getElementById('pmodalCrumbs');
+  var pmodalShopCount = document.getElementById('pmodalShopCount');
   var pmodalCat = document.getElementById('pmodalCat');
   var pmodalName = document.getElementById('pmodalName');
   var pmodalDesc = document.getElementById('pmodalDesc');
@@ -238,6 +241,7 @@
   var pmodalBackdrop = document.getElementById('pmodalBackdrop');
   var currentProduct = null;
   var configState = {};
+  var FRAME_SWATCH = { 'marco-negro': '#1a1a1a', 'marco-blanco': '#f5f1e8' };
 
   function findProduct(id) {
     return catalogData ? catalogData.products.filter(function (p) { return p.id === id; })[0] : null;
@@ -245,7 +249,8 @@
 
   function optionChipsHTML(mat) {
     return mat.options.map(function (o) {
-      return '<button class="pconfig-chip' + (o.id === configState.optionId ? ' is-selected' : '') + '" data-option="' + o.id + '">' + o.label + '</button>';
+      var swatch = FRAME_SWATCH[o.id] ? '<span class="pconfig-swatch" style="background:' + FRAME_SWATCH[o.id] + '"></span>' : '';
+      return '<button class="pconfig-chip' + (o.id === configState.optionId ? ' is-selected' : '') + '" data-option="' + o.id + '">' + swatch + o.label + '</button>';
     }).join('');
   }
 
@@ -342,6 +347,9 @@
     pmodalDots.innerHTML = multi ? p.images.map(function (_, i) {
       return '<span' + (i === 0 ? ' class="is-active"' : '') + '></span>';
     }).join('') : '';
+    pmodalThumbs.innerHTML = multi ? p.images.map(function (src, i) {
+      return '<button class="pmodal-thumb' + (i === 0 ? ' is-active' : '') + '" data-thumb="' + i + '"><img src="' + src + '" alt="" loading="lazy"></button>';
+    }).join('') : '';
     pmodalPrevImg.hidden = !multi;
     pmodalNextImg.hidden = !multi;
     pmodalGallery.scrollLeft = 0;
@@ -350,6 +358,7 @@
       '<a href="#catalogo" data-close-crumb="1">Catálogo</a><span>/</span>' +
       '<a href="#catalogo" data-crumb-group="' + p.group + '">' + p.groupLabel + '</a><span>/</span>' +
       '<strong>' + p.name + '</strong>';
+    pmodalShopCount.textContent = catalogData.products.length + ' productos en el catálogo';
     pmodalCat.textContent = p.groupLabel;
     pmodalName.textContent = p.name;
     pmodalDesc.textContent = p.description;
@@ -377,6 +386,8 @@
   function setActiveDot(idx) {
     var dots = pmodalDots.querySelectorAll('span');
     dots.forEach(function (d, i) { d.classList.toggle('is-active', i === idx); });
+    var thumbs = pmodalThumbs.querySelectorAll('.pmodal-thumb');
+    thumbs.forEach(function (t, i) { t.classList.toggle('is-active', i === idx); });
   }
 
   function scrollGalleryTo(i) {
@@ -407,6 +418,21 @@
       var idx = Math.round(pmodalGallery.scrollLeft / (pmodalGallery.clientWidth || 1));
       setActiveDot(idx);
     }, { passive: true });
+
+    pmodalThumbs.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-thumb]');
+      if (!btn) return;
+      scrollGalleryTo(parseInt(btn.getAttribute('data-thumb'), 10));
+    });
+
+    pmodalZoom.addEventListener('click', function () {
+      if (!currentProduct) return;
+      var idx = Math.round(pmodalGallery.scrollLeft / (pmodalGallery.clientWidth || 1));
+      var images = currentProduct.images.map(function (src, i) {
+        return { src: src, alt: currentProduct.name + ' foto ' + (i + 1), caption: currentProduct.name };
+      });
+      openLightboxWith(images, idx);
+    });
 
     pmodalRelatedRow.addEventListener('click', function (e) {
       var btn = e.target.closest('[data-open]');
@@ -452,19 +478,28 @@
     galleryNext.addEventListener('click', function () { galleryStrip.scrollBy({ left: galStep() * 3, behavior: 'smooth' }); });
   }
 
-  /* ---------- Lightbox ---------- */
+  /* ---------- Lightbox (shared by "Nuestros trabajos" and the product zoom) ---------- */
   var galleryItems = Array.prototype.slice.call(document.querySelectorAll('.gal-item'));
   var lightbox = document.getElementById('lightbox');
   var lightboxImg = document.getElementById('lightboxImg');
   var lightboxCaption = document.getElementById('lightboxCaption');
-  var currentIndex = 0;
+  var lightboxImages = [];
+  var lightboxIndex = 0;
 
-  function openLightbox(index) {
-    currentIndex = index;
-    var item = galleryItems[currentIndex];
-    lightboxImg.src = item.getAttribute('data-full');
-    lightboxImg.alt = item.getAttribute('aria-label') || '';
-    lightboxCaption.textContent = item.getAttribute('data-caption') || '';
+  function renderLightbox() {
+    var item = lightboxImages[lightboxIndex];
+    if (!item) return;
+    lightboxImg.src = item.src;
+    lightboxImg.alt = item.alt || '';
+    lightboxCaption.textContent = item.caption || '';
+    var multi = lightboxImages.length > 1;
+    lbPrev.hidden = !multi;
+    lbNext.hidden = !multi;
+  }
+  function openLightboxWith(images, index) {
+    lightboxImages = images;
+    lightboxIndex = index;
+    renderLightbox();
     lightbox.hidden = false;
     document.body.style.overflow = 'hidden';
   }
@@ -474,12 +509,15 @@
     document.body.style.overflow = '';
   }
   function step(dir) {
-    currentIndex = (currentIndex + dir + galleryItems.length) % galleryItems.length;
-    openLightbox(currentIndex);
+    lightboxIndex = (lightboxIndex + dir + lightboxImages.length) % lightboxImages.length;
+    renderLightbox();
   }
 
+  var galleryLightboxImages = galleryItems.map(function (item) {
+    return { src: item.getAttribute('data-full'), alt: item.getAttribute('aria-label') || '', caption: item.getAttribute('data-caption') || '' };
+  });
   galleryItems.forEach(function (item, i) {
-    item.addEventListener('click', function () { openLightbox(i); });
+    item.addEventListener('click', function () { openLightboxWith(galleryLightboxImages, i); });
   });
   var lbClose = document.getElementById('lightboxClose');
   var lbPrev = document.getElementById('lightboxPrev');

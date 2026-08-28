@@ -654,15 +654,25 @@
       <svg viewBox="0 0 24 24" width="24" height="24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
     </button>
 
-    <div class="pmodal-gallery-wrap">
-      <div class="pmodal-gallery" id="pmodalGallery"></div>
-      <button class="pmodal-gnav pmodal-gprev" id="pmodalPrevImg" aria-label="Imagen anterior" hidden><svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <button class="pmodal-gnav pmodal-gnext" id="pmodalNextImg" aria-label="Imagen siguiente" hidden><svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <div class="pmodal-gdots" id="pmodalDots"></div>
+    <div class="pmodal-media">
+      <div class="pmodal-thumbs" id="pmodalThumbs"></div>
+      <div class="pmodal-gallery-wrap">
+        <div class="pmodal-gallery" id="pmodalGallery"></div>
+        <button class="pmodal-zoom" id="pmodalZoom" aria-label="Ampliar imagen">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M11 8v6M8 11h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+        <button class="pmodal-gnav pmodal-gprev" id="pmodalPrevImg" aria-label="Imagen anterior" hidden><svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="pmodal-gnav pmodal-gnext" id="pmodalNextImg" aria-label="Imagen siguiente" hidden><svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="pmodal-gdots" id="pmodalDots"></div>
+      </div>
     </div>
 
     <div class="pmodal-info">
       <nav class="pmodal-crumbs" id="pmodalCrumbs" aria-label="Ruta"></nav>
+      <a class="pmodal-shop-row" href="#nosotros">
+        <img src="assets/img/logo/logo-icon.webp" alt="" width="32" height="32">
+        <span><strong>ZUNE</strong><small id="pmodalShopCount"></small></span>
+      </a>
       <span class="pmodal-cat" id="pmodalCat"></span>
       <h3 id="pmodalName"></h3>
       <p id="pmodalDesc"></p>
