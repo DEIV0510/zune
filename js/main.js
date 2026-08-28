@@ -335,7 +335,7 @@
     });
   }
 
-  function openProductModal(id) {
+  function renderProductModal(id) {
     var p = findProduct(id);
     if (!p || !pmodal) return;
     currentProduct = p;
@@ -377,10 +377,22 @@
     document.body.style.overflow = 'hidden';
   }
 
-  function closeProductModal() {
-    if (!pmodal) return;
+  function openProductModal(id) {
+    if (!findProduct(id)) return;
+    renderProductModal(id);
+    history.pushState({ pmodal: id }, '', '#producto-' + id);
+  }
+
+  function hideModalUI() {
+    if (!pmodal || pmodal.hidden) return;
     pmodal.hidden = true;
     document.body.style.overflow = '';
+  }
+
+  function closeProductModal() {
+    if (!pmodal || pmodal.hidden) return;
+    hideModalUI();
+    if (history.state && history.state.pmodal) history.back();
   }
 
   function setActiveDot(idx) {
@@ -496,17 +508,27 @@
     lbPrev.hidden = !multi;
     lbNext.hidden = !multi;
   }
-  function openLightboxWith(images, index) {
+  function showLightboxUI(images, index) {
     lightboxImages = images;
     lightboxIndex = index;
     renderLightbox();
     lightbox.hidden = false;
     document.body.style.overflow = 'hidden';
   }
-  function closeLightbox() {
+  function openLightboxWith(images, index) {
+    showLightboxUI(images, index);
+    history.pushState({ lightbox: true }, '', location.hash || location.pathname);
+  }
+  function hideLightboxUI() {
+    if (lightbox.hidden) return;
     lightbox.hidden = true;
     lightboxImg.src = '';
-    document.body.style.overflow = '';
+    document.body.style.overflow = pmodal && !pmodal.hidden ? 'hidden' : '';
+  }
+  function closeLightbox() {
+    if (lightbox.hidden) return;
+    hideLightboxUI();
+    if (history.state && history.state.lightbox) history.back();
   }
   function step(dir) {
     lightboxIndex = (lightboxIndex + dir + lightboxImages.length) % lightboxImages.length;
@@ -535,6 +557,22 @@
     if (e.key === 'Escape') closeLightbox();
     if (e.key === 'ArrowLeft') step(-1);
     if (e.key === 'ArrowRight') step(1);
+  });
+
+  /* ---------- Back button closes overlays instead of leaving the site ---------- */
+  window.addEventListener('popstate', function (e) {
+    var state = e.state;
+    if (state && state.lightbox) {
+      // shouldn't normally be re-entered going forward, but stay safe
+      return;
+    }
+    if (state && state.pmodal) {
+      if (lightbox && !lightbox.hidden) { hideLightboxUI(); return; }
+      renderProductModal(state.pmodal); // re-render in case back/forward changed which product is active
+      return;
+    }
+    if (lightbox && !lightbox.hidden) hideLightboxUI();
+    if (pmodal && !pmodal.hidden) hideModalUI();
   });
 
 })();
